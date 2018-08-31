@@ -14,12 +14,12 @@ export class AppComponent implements OnInit {
   public title: string = 'app';
   loading$: Observable<boolean>;
   constructor (private store: Store<AuthState>, private authService: AuthService) {
-    this.loading$ = this.store.pipe(
-      select(authStore.getIsAuthenticationLoading)
-    );
+    // this.loading$ = this.store.pipe(
+    //   select(authStore.getIsAuthenticationLoading)
+    // );
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new authStore.GetUserInfoAction(this.authService.getToken()));
+    // this.store.dispatch(new authStore.GetUserInfoAction(this.authService.getToken()));
   }
 }

@@ -22,7 +22,7 @@ export class ProductsEffects {
       return this.productsService
         .getProducts()
         .pipe(
-          map((response: { success: boolean; products: Product[]}) => {
+          map((response: any) => {
             return new productsActions.LoadProductsSuccess(response['products']);
           }),
           catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
@@ -37,7 +37,7 @@ export class ProductsEffects {
       return this.productsService
         .getProducts(action['payload'])
         .pipe(
-          map((response: { success: boolean; products: Product[]}) => {
+          map((response: any) => {
             return new productsActions.LoadProductsSuccess(response['products']);
           }),
           catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))

@@ -1,5 +1,5 @@
 import { FiltersObject } from './../models/filters.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
@@ -12,13 +12,18 @@ export class ProductsService {
   bufferQueryCategory: string = '';
   bufferQueryStock: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getProducts(filters: FiltersObject = {}): Observable<Product[]> {
+    let headers: HttpHeaders = new HttpHeaders({
+      "Authorization": `Bearer ${localStorage.getItem('token')}`
+    });
+    
     return this
       .http
       .get<Product[]>
-      (`${environment.api_url}/products${this.setFilters(filters)}`);
+      (`${environment.api_url}/products${this.setFilters(filters)}`, {headers});
   }
 
   setFilters(filtersObj: FiltersObject) {
@@ -29,14 +34,19 @@ export class ProductsService {
     }
 
     if (filtersObj && filtersObj.category) {
+      mainQuery = this.bufferQuery;
       mainQuery += this.setCategoryFilter(filtersObj, mainQuery);
     }
 
     if (filtersObj && filtersObj.stock) {
+      mainQuery = this.bufferQuery;
       mainQuery += this.setStockFilter(filtersObj, mainQuery);
     }
 
-    this.bufferQuery = mainQuery;
+    mainQuery = this.bufferQuery;
+    if (mainQuery === '?') {
+      return mainQuery = '';
+    }
     return mainQuery;
   }
 
@@ -49,22 +59,23 @@ export class ProductsService {
       if (!mainQuery.match('price')) {
         return mainQuery;
       } else {
-        let newQuery = mainQuery.slice(mainQuery.indexOf(queryPrice), queryPrice.length);
-        return mainQuery += newQuery;
+        mainQuery = mainQuery.replace(queryPrice, '');
+        queryPrice = '';
       }
     }
     if (filtersObj.price['from'] || filtersObj.price['to']) {
       if (!mainQuery.match('price')) {
         queryPrice = `price=${filtersObj.price['from']} to ${filtersObj.price['to']}`;
-        return mainQuery += queryPrice;
+        mainQuery += queryPrice;
       } else {
-        let newQuery = mainQuery.slice(mainQuery.indexOf(queryPrice), queryPrice.length);
-        return mainQuery += newQuery;
+        mainQuery = mainQuery.replace(queryPrice, `price=${filtersObj.price['from']} to ${filtersObj.price['to']}`);
+        queryPrice = `price=${filtersObj.price['from']} to ${filtersObj.price['to']}`;
       }
     }
 
+    this.bufferQuery = mainQuery;
     this.bufferQueryPrice = queryPrice;
-    return 
+    return mainQuery;
   }
 
   setCategoryFilter(filtersObj: FiltersObject, mainQuery: string): string {
