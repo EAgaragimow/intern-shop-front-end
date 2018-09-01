@@ -17,7 +17,7 @@ export class AuthService {
     return <string>localStorage.getItem('token');
   }
 
-  getUser (token: string): Observable<any> {
+  getUser(token: string): Observable<any> {
     localStorage.setItem('token', token);
 
     return this.http.get(`${this.endpoint}/user`);

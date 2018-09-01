@@ -31,7 +31,6 @@ export class ShopPageComponent implements OnInit {
     this.categories$ = this.store.pipe(select(fromCategoriesSelectors.getAllCategories));
     this.viewMode$ = this.store.pipe(select(fromProductsSelectors.getProductsViewMode));
     this.wisheIds$ = this.store.pipe(select(getWishIds));
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViODZkYWY0NTY2Zjg2MWVlMDgzODJmOCIsImxvZ2luIjoiRWx2aW4iLCJwYXNzd29yZCI6IiQyYiQxMiRGZFJkLldpRUhVR3pvSmpicEVhWmRlVjFvT2FkOGRYNGFKUHZFbGlKNjE3V2lyVVdUWVVnTyIsImlhdCI6MTUzNTc1MjUxMCwiZXhwIjoxNTM1NzU1MjEwfQ.F-Zhti-2ZJpbSkiuPYM5XwbMtcRyt45JleOvLLdRsLY');
   }
 
   ngOnInit(): void {

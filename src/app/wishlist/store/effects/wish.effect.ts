@@ -93,7 +93,7 @@ export class WishEffects {
                     this.isSignUp = false;
 
                     return this.dataService.createWishList(action.payload, []).pipe(
-                        map((products: Product[]) => new wishActions.WishDownloadDone([])),
+                        map((products: any) => new wishActions.WishDownloadDone([])),
                         catchError((err2: Error) => of(new AppNotificationShow({message: err2.message, isError: true})))
                     );
                 }
@@ -124,7 +124,7 @@ export class WishEffects {
             }),
             catchError((err: Error) => {
                 return this.dataService.createWishList(data[1], productToArray(data[0])).pipe(
-                    map((products: Product[]) => new wishActions.WishAddNewSuccess(product)),
+                    map((products: any) => new wishActions.WishAddNewSuccess(product)),
                     catchError((err2: Error) => of(new AppNotificationShow({message: err2.message, isError: true})))
                 );
             })

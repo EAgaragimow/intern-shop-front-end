@@ -1,7 +1,7 @@
 export class FormData {
   constructor(
-    public from: number,
-    public to: number,
+    public from: string,
+    public to: string,
     public category: string,
     public stock: string
   ) {}

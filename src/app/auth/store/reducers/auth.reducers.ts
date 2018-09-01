@@ -41,7 +41,7 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
         isAuthorized: true,
         loading: false,
         currentUser: {
-          token: action['payload'].token
+          user: action['payload'].user
         },
         error: null
       };
@@ -52,7 +52,9 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
         isAuthorized: true,
         loading: false,
         currentUser: {
-          token: action['payload'].token
+          id: action['payload'].token,
+          login: action['payload'].login,
+          password: action['payload'].password
         },
         error: null
       };

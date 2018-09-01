@@ -13,7 +13,6 @@ import { FormData } from '../../../shared/models/form-data.model';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  categoryRegExp: RegExp = new RegExp(/\d/g);
   form: FormGroup;
 
   @Output() filters: EventEmitter<FiltersObject> = new EventEmitter();
@@ -39,9 +38,9 @@ export class SidebarComponent {
   clearFilters(): void {
     this.form.reset();
     this.filters.emit({
-      price: {from: null, to: null},
-      category: null,
-      stock: null
+      price: {from: '', to: ''},
+      category: '',
+      stock: ''
     });
   }
 }

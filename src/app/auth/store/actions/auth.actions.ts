@@ -12,7 +12,6 @@ export const GET_USER_INFO_FAIL: string = '[AUTH] Get User Info Fail';
 
 export class AuthenticateAction implements Action {
   readonly type: string = AUTHENTICATE;
-
   constructor(public payload: {login: string, password: string}) {}
 }
 
