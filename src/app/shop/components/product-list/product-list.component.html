@@ -1,7 +1,7 @@
 <div *ngIf="((viewMode$ | async) !== 'list')" class="app-product-list__grid-container">
   <mat-grid-list cols="4" rowHeight="300px" gutterSize="50px">
     <mat-grid-tile *ngFor="let product of (products$ | async)"> 
-      <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link">    
+      <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link">
         <app-list-item [product]="product" [viewMode$]="viewMode$"
           [isWish]="(wishIds$ | async).indexOf(product.id) !== -1"
          (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)" 
@@ -14,12 +14,10 @@
 <div *ngIf="((viewMode$ | async) === 'list')">
   <ul class="app-product-list__ul">
     <li *ngFor="let product of (products$ | async)">
-      <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link"> 
         <app-list-item [product]="product" [viewMode$]="viewMode$"
         [isWish]="(wishIds$ | async).indexOf(product.id) !== -1"
         (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)" 
         (emitRemoveFromWish)="removeFromWish($event)"></app-list-item>
-      </a> 
     </li>
   </ul>
 </div>

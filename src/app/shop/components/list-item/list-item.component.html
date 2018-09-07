@@ -1,25 +1,27 @@
 <div *ngIf="((viewMode$ | async) === 'list')" class="app-list-item">
-  <mat-card>
-    <img mat-card-md-image src="{{product?.thumbnail}}" alt="{{product.title}}">
-    <mat-card-header> 
-      <mat-card-title>
-        <a [routerLink]="['', 'shop', 'products', product.id]">
-          {{product.title}}
-        </a>
-      </mat-card-title>
-      <mat-card-subtitle>
-        Category: {{product.category_title}}
-        <p class="app-list-item__price">{{product.price | currency:'USD':'symbol'}}</p>
-        <p class="app-list-item__stock">Stock: {{product.stock}}</p>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-actions>
-      <button  mat-button [disabled]="!product.stock" (click)="addToCart($event)">BUY</button>
-      <div class="app-list-wish-icon" [class.app-in-wish-list]="isWish">
-          <mat-icon (click)="addToWish($event)">favorite</mat-icon> 
-      </div>     
-    </mat-card-actions>
-  </mat-card>
+  <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link"> 
+    <mat-card>
+      <img mat-card-md-image src="{{product?.thumbnail}}" alt="{{product.title}}">
+      <mat-card-header> 
+        <mat-card-title>
+          <a [routerLink]="['', 'shop', 'products', product.id]">
+            {{product.title}}
+          </a>
+        </mat-card-title>
+        <mat-card-subtitle>
+          Category: {{product.category_title}}
+          <p class="app-list-item__price">{{product.price | currency:'USD':'symbol'}}</p>
+          <p class="app-list-item__stock">Stock: {{product.stock}}</p>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button  mat-button [disabled]="!product.stock" (click)="addToCart($event)">BUY</button>
+        <div class="app-list-wish-icon" [class.app-in-wish-list]="isWish">
+            <mat-icon (click)="addToWish($event)">favorite</mat-icon> 
+        </div>     
+      </mat-card-actions>
+    </mat-card>
+  </a>
 </div>
 
 <div *ngIf="((viewMode$ | async) === 'grid')">

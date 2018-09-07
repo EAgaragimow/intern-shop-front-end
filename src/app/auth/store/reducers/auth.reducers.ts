@@ -77,7 +77,6 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
     }
 
     case fromActions.GET_USER_INFO: {
-
       return <AuthState>{
         ...state,
         token: action['payload'],
